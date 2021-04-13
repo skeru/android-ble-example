@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private ScanSettings ble_settings;
 
     private MyScanCache cache = null;
-    private List<ScanResult> ble_results = new ArrayList<>();
 
     static final String serviceIDString = "3f1a1596-ee7f-42bd-84d1-b1a294f82ecf";
     private ScanFilter lumenFilter = null;
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
             super.onScanResult(callbackType, result);
-            ble_results.add(result);
             cache.addDevice(result.getDevice().getAddress(), null, result.getDevice().getName());
             updateResultDisplay();
             Log.i("MyScanner", "Found device " + result.getDevice().getAddress());
@@ -70,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onBatchScanResults(List<ScanResult> results) {
             super.onBatchScanResults(results);
-            ble_results.addAll(results);
             for (ScanResult result : results) {
                 cache.addDevice(result.getDevice().getAddress(), null, result.getDevice().getName());
             }
